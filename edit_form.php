@@ -29,7 +29,7 @@ class block_public_files_edit_form extends block_edit_form {
         // Fields for editing HTML block title and contents.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
-        $mform->addElement('text', 'config_title', get_string('blocktitle', 'block_html'));
+        $mform->addElement('text', 'config_title', get_string('blocktitle', 'block_public_files'));
         $mform->setType('config_title', PARAM_TEXT);
     }
 

@@ -2,7 +2,7 @@
 
 This Moodle Block is just like the internal "private_files" block, except (*dun-dun-dUHH!*) it's public. Files added to this block are available in the system context - meaning all users can access them whenever and wherever this block is visible.
 
-[Screenshot hosted by Imgur](http://i.imgur.com/0hIngNE.png)
+![Screenshot hosted by Imgur](http://i.imgur.com/0hIngNE.png)
 
 Only the site admin has the ability to add files. Allows any files types of any file size as per the system specification, including files and folders. Clicking a filename prompts the user to download it.
 

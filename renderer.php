@@ -66,10 +66,29 @@ class block_public_files_renderer extends plugin_renderer_base {
             $result .= '<li yuiConfig=\''.json_encode($yuiconfig).'\'><div>'.$image.s($subdir['dirname']).'</div> '.$this->htmllize_tree($tree, $subdir).'</li>';
         }
         foreach ($dir['files'] as $file) {
+            $props = null;
             $url = file_encode_url("$CFG->wwwroot/pluginfile.php", '/'.$tree->context->id.'/block_public_files/files'.$file->get_filepath().$file->get_filename(), true);
             $filename = $file->get_filename();
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+            if ($ext === "webloc") { // macos url shortcut
+                $obj = new \SimpleXMLElement($file->get_content());
+                $str = $obj->xpath('//dict/string');
+                if (isset($str)) {
+                    $url = $str[0][0];
+                    $props = ["target" => "_blank"];
+                } // otherwise leave it alone
+
+            } else if ($ext === "url") { // windows url shortcut
+                $obj = $file->get_content();
+                $obj = str_replace("\r\n","\n",$obj);
+                if (preg_match('/^URL=(.*)$/m',$obj,$ar)) {
+                    $url = $ar[1];
+                    $props = ["target" => "_blank"];
+                } // else wasn't something we recognise, so leave it
+            }
             $image = $this->output->pix_icon(file_file_icon($file), $filename, 'moodle', array('class'=>'icon'));
-            $result .= '<li yuiConfig=\''.json_encode($yuiconfig).'\'><div>'.html_writer::link($url, $image.$filename).'</div></li>';
+            $filename = substr($filename, 0, -strlen($ext)-1); // trim dot and extension
+            $result .= '<li yuiConfig=\''.json_encode($yuiconfig).'\'><div>'.html_writer::link($url, $image.$filename,$props).'</div></li>';
         }
         $result .= '</ul>';
 

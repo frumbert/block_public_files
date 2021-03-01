@@ -24,7 +24,7 @@ Install as you would any other plugin (e.g. site admin > notifications, Plugins 
 ## Requirements
 
 2.7+
-Last tested in Moodle 3.8.2
+Last tested in Moodle 3.10.1+
 Raise an issue in the github issue tracker if you find a version that it's NOT working with!
 
 ## Licence
